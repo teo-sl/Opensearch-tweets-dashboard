@@ -81,31 +81,31 @@ Oppure, servirsi dell'estensione per Kubernetes di vscode.
 # 6. Configurazione di OpenSearch
 Prima di iniziare a caricare i dati all'interno di OpenSearch è necessario andare a creare un indice apposito. Per tale motivo, dalla console OpenSearch è quindi necessario inserire i seguenti commandi.
 
-                PUT tweetslog/_settings
-                {
-                "index.mapping.total_fields.limit": 1500
-                }
+    PUT tweetslog/_settings
+    {
+    "index.mapping.total_fields.limit": 1500
+    }
 
 Tale comando permette di gestire i tweet con un elevato numero di campi, contemporaneamente, verrà creato l'indice "tweetslog".
 Dopodiché è necessario mappare gli attributi di interesse; opensearch non è infatto in grado di dedurre automaticamente che le coordinate geografiche sono geopoint, o individuare la data di creazione. 
 Si usano quindi questi comandi
 
-                PUT tweetslog
-                {
-                  "mappings": {
-                    "properties": {
-                      "coordinates": {
-                        "type": "geo_point",
-                        "ignore_malformed" : true
-                      },
-                      "created_at" : {
-                        "type" : "date",
-                        "format" : "EEE MMM dd HH:mm:ss Z YYYY"
-                      }
-
-                    }
-                  }
-                }
+  
+    PUT tweetslog
+    {
+      "mappings": {
+        "properties": {
+          "coordinates": {
+            "type": "geo_point",
+            "ignore_malformed" : true
+          },
+          "created_at" : {
+            "type" : "date",
+            "format" : "EEE MMM dd HH:mm:ss Z YYYY"
+          }
+        }
+      }
+    }
 
 
 
