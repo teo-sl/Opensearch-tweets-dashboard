@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: opensearch-dashboards
+  name: opensearch-dashboards
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      dashboard.service: opensearch-dashboards
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        open.network/opensearch-net: "true"
+        dashboard.service: opensearch-dashboards
+    spec:
+      containers:
+        - env:
+            - name: DISABLE_SECURITY_DASHBOARDS_PLUGIN
+              value: "true"
+            - name: OPENSEARCH_HOSTS
+              value: '["http://opensearch-node1:9200"]'
+          image: opensearchproject/opensearch-dashboards
+          name: opensearch-dashboards
+          ports:
+            - containerPort: 5601
+          resources: {}
+      restartPolicy: Always

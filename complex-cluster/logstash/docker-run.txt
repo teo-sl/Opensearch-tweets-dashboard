@@ -1,0 +1,8 @@
+docker run -it --rm --name logstash --net opensearch-cluster_opensearch-net -v ${PWD}\logstash\pipeline:/usr/share/logstash/pipeline -v ${PWD}\logs-data:/usr/share/logstash/logs-data opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2
+
+
+
+ PUT test_index/_settings
+{
+  "index.mapping.total_fields.limit": 1500. --> changed it to what is suitable for your index.
+}

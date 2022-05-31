@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    dashboard.service: opensearch-dashboards
+  name: opensearch-dashboards
+spec:
+  ports:
+    - name: "5601"
+      port: 5601
+      targetPort: 5601
+  selector:
+    dashboard.service: opensearch-dashboards
